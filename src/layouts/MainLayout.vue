@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hHh lpr lFf">
+    <q-header elevated class="bg-secondary">
       <q-toolbar>
         <q-btn
           flat
@@ -11,7 +11,13 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title>
+          <img
+            alt="Papeleria logo"
+            src="~assets/logo3.png"
+            style="width: 50px; height: 50px"
+          />
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
 

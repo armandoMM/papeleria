@@ -4,7 +4,7 @@ const routes = [
     component: () => import("layouts/BoardLayout.vue"),
     children: [
       {
-        path: "login",
+        path: "",
         name: "login",
         component: () => import("pages/login/InicioSesion.vue"),
       },

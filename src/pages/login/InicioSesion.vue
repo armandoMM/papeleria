@@ -7,7 +7,7 @@
         <q-card class="bg-white" max-width="500px" heigth="50%">
           <q-card-section>
             <div class="column items-center">
-              <q-img src="~assets/logo3.png" width="50%" heigth="50%"></q-img>
+              <q-img src="~assets/logo2.png" width="50%" heigth="50%"></q-img>
               <q-form @submit.prevent.stop="handleLogin">
                 <div class="row">
                   <div class="col-12 col-md-12">
