@@ -1,14 +1,19 @@
 <template>
-  <q-img src="~/assets/4.jpeg" width="100%" heigth="100%">
+  <!-- <q-img src="~/assets/4.jpeg" width="100%" heigth="100%"> -->
+  <q-img src="~/assets/4.jpeg" class="fullscreen">
     <div
       class="fit row wrap justify-center self-center items-center content-center"
     >
       <div class="col-12 col-md-6">
-        <q-card class="bg-white" max-width="500px" heigth="50%">
-          <q-card-section>
-            <div class="column items-center">
-              <q-img src="~assets/logo2.png" width="50%" heigth="50%"></q-img>
-              <q-form @submit.prevent.stop="handleLogin">
+        <q-card class="bg-white" max-width="500px" heigth="45%">
+          <div class="column items-center">
+            <q-img
+              src="~/assets/logo2.png"
+              width="270px"
+              class="no-padding"
+            ></q-img>
+            <q-card-section class="no-padding">
+              <q-form @submit.prevent.stop="handleLogin" class="q-mb-md">
                 <div class="row">
                   <div class="col-12 col-md-12">
                     <q-input
@@ -50,8 +55,8 @@
                   </div>
                 </div>
               </q-form>
-            </div>
-          </q-card-section>
+            </q-card-section>
+          </div>
         </q-card>
       </div>
     </div>
