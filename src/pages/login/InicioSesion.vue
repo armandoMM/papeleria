@@ -1,5 +1,4 @@
 <template>
-  <!-- <q-img src="~/assets/4.jpeg" width="100%" heigth="100%"> -->
   <q-img src="~/assets/4.jpeg" class="fullscreen">
     <div
       class="fit row wrap justify-center self-center items-center content-center"

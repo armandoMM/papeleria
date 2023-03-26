@@ -22,8 +22,6 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
@@ -33,6 +31,11 @@
     </q-drawer>
 
     <q-page-container>
+      <ATable
+        title="Prueba de tabla"
+        :columns="columnsTable"
+        :rows="rowsTable"
+      />
       <router-view />
     </q-page-container>
   </q-layout>
@@ -42,49 +45,32 @@
 import { defineComponent, ref } from "vue";
 
 import EssentialLink from "components/EssentialLink.vue";
+import ATable from "components/ATable.vue";
 
 const linksList = [
   {
     title: "Docs",
     caption: "quasar.dev",
-    icon: "school",
+    icon: "manage_accounts",
     link: "https://quasar.dev",
   },
   {
     title: "Github",
     caption: "github.com/quasarframework",
-    icon: "code",
+    icon: "screwdriver-wrench",
     link: "https://github.com/quasarframework",
   },
+];
+
+const columns = [
+  { name: "calories", label: "Calories", field: "calories", sortable: true },
+  { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
+];
+
+const rows = [
   {
-    title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
-    icon: "chat",
-    link: "https://chat.quasar.dev",
-  },
-  {
-    title: "Forum",
-    caption: "forum.quasar.dev",
-    icon: "record_voice_over",
-    link: "https://forum.quasar.dev",
-  },
-  {
-    title: "Twitter",
-    caption: "@quasarframework",
-    icon: "rss_feed",
-    link: "https://twitter.quasar.dev",
-  },
-  {
-    title: "Facebook",
-    caption: "@QuasarFramework",
-    icon: "public",
-    link: "https://facebook.quasar.dev",
-  },
-  {
-    title: "Quasar Awesome",
-    caption: "Community Quasar projects",
-    icon: "favorite",
-    link: "https://awesome.quasar.dev",
+    calories: 159,
+    fat: 6.0,
   },
 ];
 
@@ -93,12 +79,15 @@ export default defineComponent({
 
   components: {
     EssentialLink,
+    ATable,
   },
 
   setup() {
     const leftDrawerOpen = ref(false);
 
     return {
+      rowsTable: rows,
+      columnsTable: columns,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
