@@ -8,6 +8,9 @@ export default {
     },
     btn: { signin: "Iniciar sesion" },
   },
+  users: {
+    title: "Usuarios",
+  },
   gral: {
     error: {
       fieldRequired: "Campo requerido",

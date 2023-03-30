@@ -22,7 +22,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <EssentialLink
+        <essential-link
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
@@ -31,7 +31,7 @@
     </q-drawer>
 
     <q-page-container>
-      <ATable
+      <a-table
         title="Prueba de tabla"
         :columns="columnsTable"
         :rows="rowsTable"
@@ -41,13 +41,13 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
+<script setup>
+import { ref, reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
-import EssentialLink from "components/EssentialLink.vue";
-import ATable from "components/ATable.vue";
+const { t } = useI18n();
 
-const linksList = [
+const essentialLinks = reactive([
   {
     title: "Docs",
     caption: "quasar.dev",
@@ -55,45 +55,28 @@ const linksList = [
     link: "https://quasar.dev",
   },
   {
-    title: "Github",
+    title: t("users.title"),
     caption: "github.com/quasarframework",
     icon: "screwdriver-wrench",
     link: "https://github.com/quasarframework",
   },
-];
+]);
 
-const columns = [
+const columnsTable = ref([
   { name: "calories", label: "Calories", field: "calories", sortable: true },
   { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
-];
+]);
 
-const rows = [
+const rowsTable = ref([
   {
     calories: 159,
     fat: 6.0,
   },
-];
+]);
 
-export default defineComponent({
-  name: "MainLayout",
+const leftDrawerOpen = ref(false);
 
-  components: {
-    EssentialLink,
-    ATable,
-  },
-
-  setup() {
-    const leftDrawerOpen = ref(false);
-
-    return {
-      rowsTable: rows,
-      columnsTable: columns,
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-});
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
 </script>
