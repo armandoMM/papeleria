@@ -15,9 +15,19 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        path: "/",
+        path: "",
         name: "portal",
         component: () => import("pages/IndexPage.vue"),
+      },
+      {
+        path: "/usuarios",
+        name: "usuarios",
+        component: () => import("pages/Usuarios/UsuariosMain.vue"),
+      },
+      {
+        path: "/usuarios/editar",
+        name: "usuariosEdit",
+        component: () => import("pages/Usuarios/UsuariosEditar.vue"),
       },
     ],
   },

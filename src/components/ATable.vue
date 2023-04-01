@@ -1,6 +1,13 @@
 <template>
   <div class="q-pa-md">
-    <q-table :title="props.title" :rows="props.rows" :columns="props.columns" />
+    <q-table
+      :title="props.title"
+      :rows="props.rows"
+      :columns="props.columns"
+      :row-key="props['row-key']"
+    >
+      <slot v-for="(_, name) in $slots" :name="name" />
+    </q-table>
   </div>
 </template>
 <script setup>
@@ -24,6 +31,11 @@ const props = defineProps({
     default: () => [],
     description: "Arreglo de encabezados de la tabla",
     required: true,
+  },
+  "row-key": {
+    type: String,
+    required: false,
+    default: "",
   },
 });
 </script>

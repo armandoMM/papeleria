@@ -10,8 +10,13 @@ export default {
   },
   users: {
     title: "Usuarios",
+    inputs: {
+      name: "Nombre",
+      type: "Tipo",
+    },
   },
   gral: {
+    search: "Buscar",
     error: {
       fieldRequired: "Campo requerido",
     },

@@ -2,7 +2,7 @@
   "name": "papeleria",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "productName": "Papeleria",
   "author": "armandoMM <armando.matiasm99@gmail.com>",
   "private": true,
   "scripts": {

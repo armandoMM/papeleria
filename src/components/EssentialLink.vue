@@ -1,49 +1,37 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+  <q-item clickable tag="a" target="_blank" @click="redirect">
+    <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { useRouter } from "vue-router";
 
-export default defineComponent({
-  name: 'EssentialLink',
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
+const router = useRouter();
+/*export default defineComponent({
+  name: 'EssentialLink',*/
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  route: {
+    type: String,
+    default: "",
+  },
+  icon: {
+    type: String,
+    default: "",
+  },
+});
 
-    caption: {
-      type: String,
-      default: ''
-    },
-
-    link: {
-      type: String,
-      default: '#'
-    },
-
-    icon: {
-      type: String,
-      default: ''
-    }
-  }
-})
+const redirect = () => {
+  router.push({ name: props.route });
+};
 </script>

@@ -44,7 +44,7 @@
                     </q-input>
                   </div>
                 </div>
-                <div class="row q-mt-md items-center">
+                <div class="row q-my-md items-center">
                   <div class="col-12 col-md-8 offset-md-2">
                     <q-btn
                       color="secondary"

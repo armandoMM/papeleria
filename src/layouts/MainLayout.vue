@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpr lFf">
-    <q-header elevated class="bg-secondary">
+    <q-header elevated class="bg-secondary-low">
       <q-toolbar>
         <q-btn
           flat
@@ -31,11 +31,11 @@
     </q-drawer>
 
     <q-page-container>
-      <a-table
+      <!-- <a-table
         title="Prueba de tabla"
         :columns="columnsTable"
         :rows="rowsTable"
-      />
+      /> -->
       <router-view />
     </q-page-container>
   </q-layout>
@@ -48,31 +48,30 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 const essentialLinks = reactive([
-  {
-    title: "Docs",
-    caption: "quasar.dev",
-    icon: "manage_accounts",
-    link: "https://quasar.dev",
-  },
+  // {
+  //   title: "Docs",
+  //   caption: "quasar.dev",
+  //   icon: "screwdriver-wrench",
+  //   link: "https://quasar.dev",
+  // },
   {
     title: t("users.title"),
-    caption: "github.com/quasarframework",
-    icon: "screwdriver-wrench",
-    link: "https://github.com/quasarframework",
+    icon: " manage_accounts",
+    route: "usuarios",
   },
 ]);
 
-const columnsTable = ref([
-  { name: "calories", label: "Calories", field: "calories", sortable: true },
-  { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
-]);
+// const columnsTable = ref([
+//   { name: "calories", label: "Calories", field: "calories", sortable: true },
+//   { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
+// ]);
 
-const rowsTable = ref([
-  {
-    calories: 159,
-    fat: 6.0,
-  },
-]);
+// const rowsTable = ref([
+//   {
+//     calories: 159,
+//     fat: 6.0,
+//   },
+// ]);
 
 const leftDrawerOpen = ref(false);
 
