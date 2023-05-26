@@ -47,13 +47,32 @@
               <q-btn
                 size="md"
                 color="secondary"
-                :label="$t('gral.edit')"
                 class="q-px-xs"
-                no-caps
+                icon="edit"
+                round
                 unelevated
                 :disable="scope.row.tipo_id.id === 1"
                 @click="handleEdit(scope.row)"
               ></q-btn>
+            </div>
+            <div>
+              <q-btn
+                size="md"
+                color="secondary"
+                class="q-px-xs"
+                icon="delete_forever"
+                round
+                unelevated
+                :disable="scope.row.tipo_id.id === 1"
+                @click="handleModal(scope.row)"
+              ></q-btn>
+              <modal-dialog
+                ref="modal"
+                :title="$t('gral.modals.delete')"
+                :labelBtnOk="$t('gral.delete')"
+                :labelBtnCancel="$t('gral.cancel')"
+                @clickOK="handleDelete"
+              ></modal-dialog>
             </div>
           </q-td>
         </q-tr>
@@ -71,7 +90,15 @@ const router = useRouter();
 const store = useStore();
 const { t } = useI18n();
 
+const modal = ref(null);
+let usr = reactive({ id: null });
 const columnsTable = ref([
+  {
+    name: "id",
+    label: t("gral.id"),
+    field: "id",
+    sortable: true,
+  },
   {
     name: "nombre",
     label: t("users.inputs.nombre"),
@@ -113,7 +140,7 @@ const columnsTable = ref([
 
 onBeforeMount(async () => {
   try {
-    await store.dispatch("papeleria/getUsuarios", { query: {} });
+    await handleSearch();
   } catch (e) {
     console.log(e);
   }
@@ -127,6 +154,12 @@ let formData = reactive({
   tipo: null,
 });
 
+const handleSearch = async () => {
+  try {
+    await store.dispatch("papeleria/getUsuarios", { query: {} });
+  } catch (error) {}
+};
+
 const handleSubmit = () => {};
 
 const handleEdit = (row) => {
@@ -136,5 +169,20 @@ const handleEdit = (row) => {
 
 const handleAdd = () => {
   router.push({ name: "usuariosAdd" });
+};
+
+const handleModal = (row) => {
+  modal.value.show();
+  usr.id = row.id;
+};
+const handleDelete = async () => {
+  try {
+    let res = await store.dispatch("papeleria/deleteUsuario", {
+      data: { id: usr.id },
+    });
+    handleSearch();
+  } catch (error) {}
+  // console.log("id", row.id);
+  // router.push({});
 };
 </script>
