@@ -22,6 +22,7 @@ export default {
       colonia: "Colonia",
       municipio: "Municipio",
       estado: "Estado",
+      password: "Contraseña",
     },
   },
   gral: {
@@ -29,6 +30,7 @@ export default {
     send: "Enviar",
     edit: "Editar",
     back: "Regresar",
+    add: "Agregar",
     actions: "Acciones",
     error: {
       fieldRequired: "Campo requerido",

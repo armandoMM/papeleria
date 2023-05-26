@@ -84,6 +84,22 @@
               :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-select>
           </div>
+          <div class="col-12 col-md-4">
+            <q-input
+              :label="$t('users.inputs.password')"
+              v-model="formData.pw"
+              :type="isPwd ? 'password' : 'text'"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+          </div>
         </div>
         <div class="row">
           <div class="col-12 col-md-2 offset-md-8 self-center">
@@ -97,7 +113,7 @@
           <div class="col-12 col-md-2 self-center">
             <q-btn
               color="secondary"
-              :label="$t('gral.edit')"
+              :label="$t('gral.add')"
               type="submit"
               size="md"
             ></q-btn>
@@ -108,27 +124,23 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive, onBeforeMount, computed } from "vue";
+import { ref, onBeforeMount, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const router = useRouter();
 const store = useStore();
 
-onBeforeMount(async () => {
-  try {
-    if (!usuario.value) {
-      routeBack();
-    }
-    Object.assign(formData, usuario.value);
-    formData.tipo_id = usuario.value.tipo_id.id;
-    formData.estado_id = usuario.value.estado_id.id;
-  } catch (e) {
-    console.log(e);
-  }
-});
+// onBeforeMount(async () => {
+//   try {
+//     if (!usuario.value) {
+//       routeBack();
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
-let usuario = computed(() => store.state.papeleria.usuarioSelected);
 let catTipos = computed(() => store.getters["papeleria/catTipos"]);
 let catEstados = computed(() => store.getters["papeleria/catEstados"]);
 
@@ -144,12 +156,14 @@ let formData = reactive({
   municipio: null,
   estado_id: null,
   tipo_id: null,
+  pw: null,
 });
+let isPwd = ref(true);
 
 const handleSubmit = async () => {
   try {
     let data = { ...formData };
-    let res = await store.dispatch("papeleria/updateUsuario", { data });
+    let res = await store.dispatch("papeleria/addUsuario", { data });
     routeBack();
   } catch (error) {
     throw error;

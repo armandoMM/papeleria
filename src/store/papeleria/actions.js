@@ -26,6 +26,7 @@ export async function addUsuario(context, payload) {
   try {
     payload.path = "usuarios";
     let res = await factoryApis.post(payload);
+    return res;
   } catch (error) {
     throw error;
   }

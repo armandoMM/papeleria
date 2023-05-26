@@ -24,6 +24,12 @@
               type="submit"
               disable
             ></q-btn>
+            <q-btn
+              class="q-ml-xs"
+              color="secondary"
+              :label="$t('gral.add')"
+              @click="handleAdd()"
+            ></q-btn>
           </div>
         </div>
       </q-form>
@@ -125,7 +131,10 @@ const handleSubmit = () => {};
 
 const handleEdit = (row) => {
   store.commit("papeleria/SET_SELECTED_USUARIO", row);
-  console.log(row);
   router.push({ name: "usuariosEdit" });
+};
+
+const handleAdd = () => {
+  router.push({ name: "usuariosAdd" });
 };
 </script>

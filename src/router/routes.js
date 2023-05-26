@@ -29,6 +29,11 @@ const routes = [
         name: "usuariosEdit",
         component: () => import("pages/Usuarios/UsuariosEditar.vue"),
       },
+      {
+        path: "/usuarios/agregar",
+        name: "usuariosAdd",
+        component: () => import("pages/Usuarios/AddUsuario.vue"),
+      },
     ],
   },
 
