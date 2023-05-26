@@ -34,22 +34,5 @@ export default route(function (/* { store, ssrContext } */) {
     history: createWebHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  // Router.beforeEach((to, from) => {
-  //   // if (to.path.includes("/registro/") && !sessionStorage.getItem("token")) {
-  //   if (
-  //     to.name !== "login" &&
-  //     !!store.default.state &&
-  //     store.default.state.papeleria.usuario == null
-  //   ) {
-  //     return { name: "login" };
-  //   } else {
-  //     return true;
-  //   }
-  // });
-
-  // Router.afterEach((to, from) => {
-  //   window.scrollTo({ top: 0 });
-  // });
-
   return Router;
 });
