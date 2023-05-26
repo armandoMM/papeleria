@@ -12,7 +12,7 @@
               class="no-padding"
             ></q-img>
             <q-card-section class="no-padding">
-              <q-form @submit.prevent.stop="handleLogin" class="q-mb-md">
+              <q-form @submit="handleLogin" class="q-mb-md">
                 <div class="row">
                   <div class="col-12 col-md-12">
                     <q-input
@@ -28,7 +28,7 @@
                   <div class="col-12 col-md-12">
                     <q-input
                       :label="$t('login.inputs.password')"
-                      v-model="formData.password"
+                      v-model="formData.pw"
                       :type="isPwd ? 'password' : 'text'"
                       :rules="[
                         (val) => !!val || $t('gral.error.fieldRequired'),
@@ -64,18 +64,25 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const router = useRouter();
+const store = useStore();
 
 let formData = reactive({
   user: null,
-  password: null,
+  pw: null,
 });
 let isPwd = ref(true);
 
 const handleLogin = async () => {
   try {
+    await store.dispatch("papeleria/login", {
+      query: { ...formData },
+    });
     router.push({ name: "portal" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>

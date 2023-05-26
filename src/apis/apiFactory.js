@@ -1,15 +1,16 @@
-import { api } from "@/boot/axios";
-import { router } from "@/router";
+import { api } from "src/boot/axios";
+import router from "src/router";
+import { transformToParamsString } from "../utils/apiUtils";
 
 export default {
   async get(payload, sendJWT = false) {
-    // var config = {
-    //   headers: sendJWT
-    //     ? {
-    //         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    //       }
-    //     : {},
-    // };
+    var config = {
+      headers: sendJWT
+        ? {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          }
+        : {},
+    };
     let { query } = payload;
     query = transformToParamsString(query);
     return new Promise((resolve, reject) => {
@@ -21,7 +22,7 @@ export default {
         .catch((error) => {
           if (error.response.status == 401) {
             sessionStorage.removeItem("token");
-            router.push({ name: "iniciarSesion" });
+            router.push({ name: "login" });
           } else {
             reject(error);
           }
@@ -29,15 +30,15 @@ export default {
     });
   },
   async post(payload, sendJWT = false) {
-    // var config = {
-    //   headers: sendJWT
-    //     ? {
-    //         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    //       }
-    //     : {},
-    // };
+    var config = {
+      headers: sendJWT
+        ? {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          }
+        : {},
+    };
     let { query } = payload;
-    // query = transformToParamsString(query);
+    query = transformToParamsString(query);
     return new Promise((resolve, reject) => {
       api
         .post(`${payload.path}${query}`, payload.data, config)
@@ -47,7 +48,7 @@ export default {
         .catch((error) => {
           if (error.response.status == 401) {
             sessionStorage.removeItem("token");
-            router.push({ name: "iniciarSesion" });
+            router.push({ name: "login" });
           } else {
             reject(error);
           }

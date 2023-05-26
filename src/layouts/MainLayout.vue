@@ -42,10 +42,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onBeforeMount } from "vue";
 import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 
 const { t } = useI18n();
+const store = useStore();
 
 const essentialLinks = reactive([
   // {
@@ -61,17 +63,14 @@ const essentialLinks = reactive([
   },
 ]);
 
-// const columnsTable = ref([
-//   { name: "calories", label: "Calories", field: "calories", sortable: true },
-//   { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
-// ]);
-
-// const rowsTable = ref([
-//   {
-//     calories: 159,
-//     fat: 6.0,
-//   },
-// ]);
+onBeforeMount(async () => {
+  try {
+    await store.dispatch("papeleria/getTipos", { query: {} });
+    await store.dispatch("papeleria/getEstados", { query: {} });
+  } catch (error) {
+    throw error;
+  }
+});
 
 const leftDrawerOpen = ref(false);
 
