@@ -42,43 +42,41 @@
       </template>
       <template v-slot:body-cell-acciones="scope">
         <q-tr>
-          <q-td auto-width>
-            <div>
+          <q-td auto-width class="q-ma-sm">
+            <div class="row col-12 items-center justify-center">
               <q-btn
-                size="md"
+                size="sm"
                 color="secondary"
-                class="q-px-xs"
+                class="q-pa-xs"
                 icon="edit"
                 round
                 unelevated
                 :disable="scope.row.tipo_id.id === 1"
                 @click="handleEdit(scope.row)"
               ></q-btn>
-            </div>
-            <div>
               <q-btn
-                size="md"
-                color="secondary"
-                class="q-px-xs"
+                size="sm"
+                color="primary"
+                class="q-pa-xs"
                 icon="delete_forever"
                 round
                 unelevated
                 :disable="scope.row.tipo_id.id === 1"
                 @click="handleModal(scope.row)"
               ></q-btn>
-              <modal-dialog
-                ref="modal"
-                :title="$t('gral.modals.delete')"
-                :labelBtnOk="$t('gral.delete')"
-                :labelBtnCancel="$t('gral.cancel')"
-                @clickOK="handleDelete"
-              ></modal-dialog>
             </div>
           </q-td>
         </q-tr>
       </template>
     </q-table>
   </div>
+  <modal-dialog
+    ref="modal"
+    :title="$t('gral.modals.delete')"
+    :labelBtnOk="$t('gral.delete')"
+    :labelBtnCancel="$t('gral.cancel')"
+    @clickOK="handleDelete"
+  ></modal-dialog>
 </template>
 <script setup>
 import { ref, reactive, onBeforeMount, computed } from "vue";
@@ -97,45 +95,57 @@ const columnsTable = ref([
     name: "id",
     label: t("gral.id"),
     field: "id",
+    align: "center",
     sortable: true,
   },
   {
     name: "nombre",
     label: t("users.inputs.nombre"),
     field: "nombre",
+    align: "center",
     sortable: true,
   },
   {
     name: "ape_paterno",
     label: t("users.inputs.ape_paterno"),
     field: "ape_paterno",
+    align: "center",
     sortable: true,
   },
   {
     name: "ape_materno",
     label: t("users.inputs.ape_materno"),
     field: "ape_materno",
+    align: "center",
     sortable: true,
   },
   {
     name: "fecha_nac",
     label: t("users.inputs.fecha_nac"),
     field: "fecha_nac",
+    align: "center",
     sortable: true,
   },
   {
     name: "telefono",
     label: t("users.inputs.telefono"),
     field: "telefono",
+    align: "center",
     sortable: true,
   },
   {
     name: "tipo",
     label: t("users.inputs.tipo"),
     field: "tipo_id",
+    align: "center",
     sortable: true,
   },
-  { name: "acciones", label: t("gral.actions"), field: "acciones" },
+  {
+    name: "acciones",
+    label: t("gral.actions"),
+    field: "acciones",
+    align: "center",
+  },
 ]);
 
 onBeforeMount(async () => {
