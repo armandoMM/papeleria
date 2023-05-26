@@ -54,7 +54,7 @@ jobs:
         with:
           app-name: "papeleria-web"
           slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A38A7EA1740F4621B2BDBDD3820DE325 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA4F8D2E80FC4AD187968242707C9BFA }}
           package: vue.zip
 
       - name: Delete zip file
