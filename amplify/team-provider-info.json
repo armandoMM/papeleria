@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-papeleria-dev-25047-authRole",
+      "UnauthRoleArn": "arn:aws:iam::983305565166:role/amplify-papeleria-dev-25047-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::983305565166:role/amplify-papeleria-dev-25047-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-papeleria-dev-25047-deployment",
+      "UnauthRoleName": "amplify-papeleria-dev-25047-unauthRole",
+      "StackName": "amplify-papeleria-dev-25047",
+      "StackId": "arn:aws:cloudformation:us-east-2:983305565166:stack/amplify-papeleria-dev-25047/948ef350-fc6b-11ed-9589-0279079ea475",
+      "AmplifyAppId": "d1iqrwdeabpkx9"
+    }
+  }
+}
