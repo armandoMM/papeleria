@@ -62,9 +62,10 @@
   </q-img>
 </template>
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, inject } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { showMsg } from "src/utils/notify";
 
 const router = useRouter();
 const store = useStore();
@@ -82,7 +83,7 @@ const handleLogin = async () => {
     });
     router.push({ name: "portal" });
   } catch (error) {
-    console.log(error);
+    showMsg("error", error.response.data.message);
   }
 };
 </script>
