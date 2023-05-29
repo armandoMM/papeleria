@@ -66,9 +66,11 @@ import { reactive, ref, inject } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { showMsg } from "src/utils/notify";
+import { useQuasar } from "quasar";
 
 const router = useRouter();
 const store = useStore();
+const $q = useQuasar();
 
 let formData = reactive({
   user: null,
@@ -78,12 +80,15 @@ let isPwd = ref(true);
 
 const handleLogin = async () => {
   try {
+    $q.loading.show();
     await store.dispatch("papeleria/login", {
       query: { ...formData },
     });
     router.push({ name: "portal" });
   } catch (error) {
     showMsg("error", error.response.data.message);
+  } finally {
+    $q.loading.hide();
   }
 };
 </script>
