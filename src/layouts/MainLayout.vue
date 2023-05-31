@@ -61,6 +61,11 @@ const essentialLinks = reactive([
     icon: " manage_accounts",
     route: "usuarios",
   },
+  {
+    title: t("marcas.title"),
+    icon: "sell",
+    route: "marcas",
+  },
 ]);
 
 onBeforeMount(async () => {

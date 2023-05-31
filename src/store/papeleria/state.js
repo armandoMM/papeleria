@@ -5,5 +5,7 @@ export default function () {
     usuarios: [],
     estados: null,
     tipos: null,
+    marcas: [],
+    marcaSelected: null,
   };
 }

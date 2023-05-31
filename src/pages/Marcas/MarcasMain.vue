@@ -1,21 +1,14 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("users.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
     <div class="q-my-md q-mx-lg">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('users.inputs.nombre')"
+              :label="$t('marcas.inputs.nombre')"
               v-model="formData.nombre"
             ></q-input>
-          </div>
-          <div class="col-md-4 col-12">
-            <q-select
-              :label="$t('users.inputs.tipo')"
-              v-model="formData.tipo"
-              :options="catTipos"
-            ></q-select>
           </div>
           <div class="col-12 col-md-3 offset-md-1 self-center">
             <q-btn
@@ -36,7 +29,7 @@
     </div>
     <q-table
       :columns="columnsTable"
-      :rows="usuarios"
+      :rows="marcas"
       :loading="loadingTable"
       row-key="acciones"
     >
@@ -58,7 +51,6 @@
               icon="edit"
               round
               unelevated
-              :disable="scope.row.tipo_id.id === 1"
               @click="handleEdit(scope.row)"
             ></q-btn>
             <q-btn
@@ -68,7 +60,6 @@
               icon="delete_forever"
               round
               unelevated
-              :disable="scope.row.tipo_id.id === 1"
               @click="handleModal(scope.row)"
             ></q-btn>
           </div>
@@ -89,7 +80,6 @@ import { ref, reactive, onBeforeMount, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
-import { showMsg } from "src/utils/notify";
 import { useQuasar } from "quasar";
 
 const router = useRouter();
@@ -98,7 +88,7 @@ const { t } = useI18n();
 const $q = useQuasar();
 
 const modal = ref(null);
-let usr = reactive({ id: null });
+let brand = reactive({ id: null });
 const columnsTable = ref([
   {
     name: "id",
@@ -109,43 +99,15 @@ const columnsTable = ref([
   },
   {
     name: "nombre",
-    label: t("users.inputs.nombre"),
+    label: t("marcas.inputs.nombre"),
     field: "nombre",
     align: "center",
     sortable: true,
   },
   {
-    name: "ape_paterno",
-    label: t("users.inputs.ape_paterno"),
-    field: "ape_paterno",
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "ape_materno",
-    label: t("users.inputs.ape_materno"),
-    field: "ape_materno",
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "fecha_nac",
-    label: t("users.inputs.fecha_nac"),
-    field: "fecha_nac",
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "telefono",
-    label: t("users.inputs.telefono"),
-    field: "telefono",
-    align: "center",
-    sortable: true,
-  },
-  {
-    name: "tipo",
-    label: t("users.inputs.tipo"),
-    field: "tipo_id",
+    name: "activa",
+    label: t("marcas.inputs.importacion"),
+    field: "nombre",
     align: "center",
     sortable: true,
   },
@@ -170,19 +132,18 @@ onBeforeMount(async () => {
 
 onMounted(() => {});
 
-let usuarios = computed(() => store.state.papeleria.usuarios);
-let catTipos = computed(() => store.getters["papeleria/catTipos"]);
+let marcas = computed(() => store.state.papeleria.marcas);
+let usuario = computed(() => store.state.papeleria.usuario);
 
 let formData = reactive({
   nombre: null,
-  tipo: null,
 });
 let loadingTable = ref(false);
 
 const handleSearch = async () => {
   try {
     loadingTable.value = true;
-    await store.dispatch("papeleria/getUsuarios", { query: {} });
+    await store.dispatch("papeleria/getMarcas", { query: {} });
   } catch (error) {
   } finally {
     loadingTable.value = false;
@@ -192,27 +153,27 @@ const handleSearch = async () => {
 const handleSubmit = () => {};
 
 const handleEdit = (row) => {
-  store.commit("papeleria/SET_SELECTED_USUARIO", row);
-  router.push({ name: "usuariosEdit" });
+  store.commit("papeleria/SET_SELECTED_MARCA", row);
+  router.push({ name: "marcasEdit" });
 };
 
 const handleAdd = () => {
-  router.push({ name: "usuariosAdd" });
+  router.push({ name: "marcasAdd" });
 };
 
 const handleModal = (row) => {
   modal.value.show();
-  usr.id = row.id;
+  brand.id = row.id;
 };
 const handleDelete = async () => {
   try {
-    let res = await store.dispatch("papeleria/deleteUsuario", {
-      data: { id: usr.id },
+    let res = await store.dispatch("papeleria/deleteMarca", {
+      data: { id: brand.id },
     });
     handleSearch();
     $q.notify({
       color: "accent",
-      message: "Usuario eliminado",
+      message: "Marca eliminada",
       position: "top",
       classes: "elevate-notify",
     });

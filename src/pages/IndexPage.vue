@@ -8,10 +8,25 @@
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { defineComponent, onMounted, provide, nextTick } from "vue";
+// import { showMsg } from "src/utils/notify";
+import { useI18n } from "vue-i18n";
+import { useQuasar } from "quasar";
 
-export default defineComponent({
+const { t } = useI18n();
+const $q = useQuasar();
+
+defineComponent({
   name: "IndexPage",
+});
+
+onMounted(() => {
+  $q.notify({
+    color: "accent",
+    message: t("gral.welcome"),
+    position: "top",
+    classes: "elevate-notify",
+  });
 });
 </script>

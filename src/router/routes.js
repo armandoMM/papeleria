@@ -34,6 +34,21 @@ const routes = [
         name: "usuariosAdd",
         component: () => import("pages/Usuarios/AddUsuario.vue"),
       },
+      {
+        path: "/marcas",
+        name: "marcas",
+        component: () => import("pages/Marcas/MarcasMain.vue"),
+      },
+      {
+        path: "/marcas/editar",
+        name: "marcasEdit",
+        component: () => import("pages/Marcas/EditMarca.vue"),
+      },
+      {
+        path: "/marcas/agregar",
+        name: "marcasAdd",
+        component: () => import("pages/Marcas/AddMarca.vue"),
+      },
     ],
   },
 

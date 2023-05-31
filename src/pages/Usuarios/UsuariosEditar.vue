@@ -109,26 +109,27 @@
 </template>
 <script setup>
 import { ref, reactive, onBeforeMount, computed } from "vue";
+import { showMsg } from "src/utils/notify";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useQuasar } from "quasar";
 
 const router = useRouter();
 const store = useStore();
+const $q = useQuasar();
 
 onBeforeMount(async () => {
   try {
-    if (!usuario.value) {
-      routeBack();
-    }
-    Object.assign(formData, usuario.value);
+    Object.assign(formData, usuarioSel.value);
     formData.tipo_id = usuario.value.tipo_id.id;
     formData.estado_id = usuario.value.estado_id.id;
   } catch (e) {
     console.log(e);
+    routeBack();
   }
 });
 
-let usuario = computed(() => store.state.papeleria.usuarioSelected);
+let usuarioSel = computed(() => store.state.papeleria.usuarioSelected);
 let catTipos = computed(() => store.getters["papeleria/catTipos"]);
 let catEstados = computed(() => store.getters["papeleria/catEstados"]);
 
@@ -148,11 +149,25 @@ let formData = reactive({
 
 const handleSubmit = async () => {
   try {
+    $q.loading.show();
     let data = { ...formData };
     let res = await store.dispatch("papeleria/updateUsuario", { data });
-    routeBack();
+    $q.notify({
+      color: "accent",
+      message: "Usuario editado",
+      position: "top",
+      classes: "elevate-notify",
+    });
   } catch (error) {
-    throw error;
+    console.log(error);
+    $q.notify({
+      color: "red",
+      message: error.response.data.message,
+      position: "top",
+      classes: "elevate-notify",
+    });
+  } finally {
+    $q.loading.hide();
   }
 };
 

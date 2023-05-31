@@ -70,3 +70,42 @@ export async function getTipos(context, payload) {
     throw error;
   }
 }
+
+export async function getMarcas(context, payload) {
+  try {
+    payload.path = `marcas/all`;
+    let res = await factoryApis.get(payload);
+    context.commit("SET_ALL_MARCAS", res.data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addMarca(context, payload) {
+  try {
+    payload.path = "marcas";
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateMarca(context, payload) {
+  try {
+    payload.path = `marcas/update-marca`;
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteMarca(context, payload) {
+  try {
+    payload.path = `marcas/delete-marca`;
+    let res = await factoryApis.post(payload);
+  } catch (error) {
+    throw error;
+  }
+}

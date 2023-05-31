@@ -39,7 +39,9 @@
             <q-input
               :label="$t('users.inputs.fecha_nac')"
               type="date"
+              stack-label
               v-model="formData.fecha_nac"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
@@ -48,30 +50,35 @@
               v-model="formData.telefono"
               mask="##########"
               :length="10"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
             <q-input
               :label="$t('users.inputs.calle')"
               v-model="formData.calle"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
             <q-input
               :label="$t('users.inputs.numero')"
               v-model="formData.numero"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
             <q-input
               :label="$t('users.inputs.colonia')"
               v-model="formData.colonia"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
             <q-input
               :label="$t('users.inputs.municipio')"
               v-model="formData.municipio"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
           <div class="col-md-4 col-12">
@@ -127,9 +134,11 @@
 import { ref, onBeforeMount, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useQuasar } from "quasar";
 
 const router = useRouter();
 const store = useStore();
+const $q = useQuasar();
 
 // onBeforeMount(async () => {
 //   try {
@@ -162,11 +171,25 @@ let isPwd = ref(true);
 
 const handleSubmit = async () => {
   try {
+    $q.loading.show();
     let data = { ...formData };
     let res = await store.dispatch("papeleria/addUsuario", { data });
+    $q.notify({
+      color: "accent",
+      message: "Usuario agregado",
+      position: "top",
+      classes: "elevate-notify",
+    });
     routeBack();
   } catch (error) {
-    throw error;
+    $q.notify({
+      color: "red",
+      message: error.response.data.message,
+      position: "top",
+      classes: "elevate-notify",
+    });
+  } finally {
+    $q.loading.hide();
   }
 };
 

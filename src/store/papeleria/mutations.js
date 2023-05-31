@@ -17,3 +17,11 @@ export function SET_CAT_ESTADOS(state, payload) {
 export function SET_CAT_TIPOS(state, payload) {
   state.tipos = payload;
 }
+
+export function SET_ALL_MARCAS(state, payload) {
+  state.marcas = payload;
+}
+
+export function SET_SELECTED_MARCA(state, payload) {
+  state.marcaSelected = payload;
+}

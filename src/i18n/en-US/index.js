@@ -25,7 +25,37 @@ export default {
       password: "Contraseña",
     },
   },
+  marcas: {
+    title: "Marcas",
+    inputs: {
+      nombre: "Nombre",
+      importacion: "Importación",
+    },
+  },
+  categorias: {
+    title: "Categorias",
+    inputs: {
+      nombre: "Nombre",
+      descripcion: "Descripción",
+      palabraClave: "Palabra clave",
+      activa: "Activa",
+    },
+  },
+  proveedores: {
+    title: "Proveedores",
+    inputs: {
+      nombre: "Nombre",
+      telefono: "Teléfono",
+      correo: "Correo",
+      calle: "Calle",
+      numero: "Ṇúmero",
+      colonia: "Colonia",
+      municipio: "Municipio",
+      estado: "Estado",
+    },
+  },
   gral: {
+    welcome: "¡¡Bienvenido!!",
     search: "Buscar",
     send: "Enviar",
     edit: "Editar",
@@ -35,6 +65,8 @@ export default {
     actions: "Acciones",
     ok: "Ok",
     cancel: "Cancelar",
+    yes: "Si",
+    no: "No",
     id: "id",
     modals: {
       delete: "¿Desea eliminar este elemento?",
