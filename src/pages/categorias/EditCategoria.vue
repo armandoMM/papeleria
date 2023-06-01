@@ -1,28 +1,42 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("categorias.title") }}</div>
     <div class="q-my-md">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('users.inputs.nombre')"
+              :label="$t('categorias.inputs.nombre')"
               v-model="formData.nombre"
               :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
+          <div class="col-md-8 col-12">
+            <q-input
+              :label="$t('categorias.inputs.descripcion')"
+              v-model="formData.descripcion"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
+            ></q-input>
+          </div>
           <div class="col-md-4 col-12">
-            {{ $t("marcas.inputs.importacion") }}
+            <q-input
+              :label="$t('categorias.inputs.palabraClave')"
+              v-model="formData.palabraClave"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
+            ></q-input>
+          </div>
+          <div class="col-md-4 col-12">
+            {{ $t("categorias.inputs.activa") }}
             <div class="q-gutter-sm">
               <q-radio
                 left-label
-                v-model="formData.importacion"
+                v-model="formData.activa"
                 :val="$t('gral.yes')"
                 :label="$t('gral.yes')"
               />
               <q-radio
                 left-label
-                v-model="formData.importacion"
+                v-model="formData.activa"
                 :val="$t('gral.no')"
                 :label="$t('gral.no')"
               />
@@ -63,28 +77,30 @@ const $q = useQuasar();
 
 onBeforeMount(async () => {
   try {
-    Object.assign(formData, marcaSel.value);
+    Object.assign(formData, categoriaSel.value);
   } catch (e) {
     console.log(e);
     routeBack();
   }
 });
 
-let marcaSel = computed(() => store.state.papeleria.marcaSelected);
+let categoriaSel = computed(() => store.state.papeleria.categoriaSelected);
 
 let formData = reactive({
   nombre: null,
-  importacion: null,
+  descripcion: null,
+  activa: null,
+  palabraClave: null,
 });
 
 const handleSubmit = async () => {
   try {
     $q.loading.show();
     let data = { ...formData };
-    let res = await store.dispatch("papeleria/updateMarca", { data });
+    let res = await store.dispatch("papeleria/updateCategoria", { data });
     $q.notify({
       color: "accent",
-      message: "Marca Editada",
+      message: "Categoria editada",
       position: "top",
       classes: "elevate-notify",
     });
@@ -103,6 +119,6 @@ const handleSubmit = async () => {
 };
 
 const routeBack = async () => {
-  router.push({ name: "marcas" });
+  router.push({ name: "categorias" });
 };
 </script>

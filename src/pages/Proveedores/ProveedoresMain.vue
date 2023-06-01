@@ -1,12 +1,12 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("proveedores.title") }}</div>
     <div class="q-my-md q-mx-lg">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('marcas.inputs.nombre')"
+              :label="$t('proveedores.inputs.nombre')"
               v-model="formData.nombre"
             ></q-input>
           </div>
@@ -29,7 +29,7 @@
     </div>
     <q-table
       :columns="columnsTable"
-      :rows="marcas"
+      :rows="proveedores"
       :loading="loadingTable"
       row-key="acciones"
     >
@@ -83,7 +83,7 @@ const { t } = useI18n();
 const $q = useQuasar();
 
 const modal = ref(null);
-let brand = reactive({ id: null });
+let prov = reactive({ id: null });
 const columnsTable = ref([
   {
     name: "id",
@@ -94,15 +94,22 @@ const columnsTable = ref([
   },
   {
     name: "nombre",
-    label: t("marcas.inputs.nombre"),
+    label: t("proveedores.inputs.nombre"),
     field: "nombre",
     align: "center",
     sortable: true,
   },
   {
-    name: "importacion",
-    label: t("marcas.inputs.importacion"),
-    field: "importacion",
+    name: "telefono",
+    label: t("proveedores.inputs.telefono"),
+    field: "telefono",
+    align: "center",
+    sortable: true,
+  },
+  {
+    name: "correo",
+    label: t("proveedores.inputs.correo"),
+    field: "correo",
     align: "center",
     sortable: true,
   },
@@ -125,9 +132,7 @@ onBeforeMount(async () => {
   }
 });
 
-onMounted(() => {});
-
-let marcas = computed(() => store.state.papeleria.marcas);
+let proveedores = computed(() => store.state.papeleria.proveedores);
 let usuario = computed(() => store.state.papeleria.usuario);
 
 let formData = reactive({
@@ -138,7 +143,7 @@ let loadingTable = ref(false);
 const handleSearch = async () => {
   try {
     loadingTable.value = true;
-    await store.dispatch("papeleria/getMarcas", { query: {} });
+    await store.dispatch("papeleria/getProveedores", { query: {} });
   } catch (error) {
   } finally {
     loadingTable.value = false;
@@ -148,27 +153,27 @@ const handleSearch = async () => {
 const handleSubmit = () => {};
 
 const handleEdit = (row) => {
-  store.commit("papeleria/SET_SELECTED_MARCA", row);
-  router.push({ name: "marcasEdit" });
+  store.commit("papeleria/SET_SELECTED_PROVEEDOR", row);
+  router.push({ name: "proveedorEdit" });
 };
 
 const handleAdd = () => {
-  router.push({ name: "marcasAdd" });
+  router.push({ name: "proveedorAdd" });
 };
 
 const handleModal = (row) => {
   modal.value.show();
-  brand.id = row.id;
+  prov.id = row.id;
 };
 const handleDelete = async () => {
   try {
-    let res = await store.dispatch("papeleria/deleteMarca", {
-      data: { id: brand.id },
+    let res = await store.dispatch("papeleria/deleteProveedor", {
+      data: { id: prov.id },
     });
     handleSearch();
     $q.notify({
       color: "accent",
-      message: "Marca eliminada",
+      message: "Proveedor eliminado",
       position: "top",
       classes: "elevate-notify",
     });

@@ -109,3 +109,81 @@ export async function deleteMarca(context, payload) {
     throw error;
   }
 }
+
+export async function getCategorias(context, payload) {
+  try {
+    payload.path = `categorias/all`;
+    let res = await factoryApis.get(payload);
+    context.commit("SET_ALL_CATEGORIAS", res.data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addCategoria(context, payload) {
+  try {
+    payload.path = "categorias";
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateCategoria(context, payload) {
+  try {
+    payload.path = `categorias/update-categoria`;
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteCategoria(context, payload) {
+  try {
+    payload.path = `categorias/delete-categoria`;
+    let res = await factoryApis.post(payload);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getProveedores(context, payload) {
+  try {
+    payload.path = `proveedores/all`;
+    let res = await factoryApis.get(payload);
+    context.commit("SET_ALL_PROVEEDORES", res.data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addProveedor(context, payload) {
+  try {
+    payload.path = "proveedores";
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateProveedor(context, payload) {
+  try {
+    payload.path = `proveedores/update-proveedor`;
+    let res = await factoryApis.post(payload);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteProveedor(context, payload) {
+  try {
+    payload.path = `proveedores/delete-proveedor`;
+    let res = await factoryApis.post(payload);
+  } catch (error) {
+    throw error;
+  }
+}

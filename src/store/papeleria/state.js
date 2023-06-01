@@ -7,5 +7,9 @@ export default function () {
     tipos: null,
     marcas: [],
     marcaSelected: null,
+    categorias: [],
+    categoriaSelected: null,
+    proveedores: [],
+    proveedorSelected: null,
   };
 }

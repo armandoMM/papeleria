@@ -1,12 +1,12 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("users.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
     <div class="q-my-md">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('users.inputs.nombre')"
+              :label="$t('marcas.inputs.nombre')"
               v-model="formData.nombre"
               :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>

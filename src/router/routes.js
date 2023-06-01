@@ -49,6 +49,36 @@ const routes = [
         name: "marcasAdd",
         component: () => import("pages/Marcas/AddMarca.vue"),
       },
+      {
+        path: "/categorias",
+        name: "categorias",
+        component: () => import("pages/categorias/CategoriasMain.vue"),
+      },
+      {
+        path: "/categorias/editar",
+        name: "categoriasEdit",
+        component: () => import("pages/categorias/EditCategoria.vue"),
+      },
+      {
+        path: "/categorias/agregar",
+        name: "categoriasAdd",
+        component: () => import("pages/categorias/AddCategoria.vue"),
+      },
+      {
+        path: "/proveedores",
+        name: "proveedores",
+        component: () => import("pages/Proveedores/ProveedoresMain.vue"),
+      },
+      {
+        path: "/proveedores/editar",
+        name: "proveedorEdit",
+        component: () => import("pages/Proveedores/EditProveedor.vue"),
+      },
+      {
+        path: "/proveedores/agregar",
+        name: "proveedorAdd",
+        component: () => import("pages/Proveedores/AddProveedor.vue"),
+      },
     ],
   },
 

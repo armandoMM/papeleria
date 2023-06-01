@@ -1,28 +1,42 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("categorias.title") }}</div>
     <div class="q-my-md">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('users.inputs.nombre')"
+              :label="$t('categorias.inputs.nombre')"
               v-model="formData.nombre"
               :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
             ></q-input>
           </div>
+          <div class="col-md-8 col-12">
+            <q-input
+              :label="$t('categorias.inputs.descripcion')"
+              v-model="formData.descripcion"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
+            ></q-input>
+          </div>
           <div class="col-md-4 col-12">
-            {{ $t("marcas.inputs.importacion") }}
+            <q-input
+              :label="$t('categorias.inputs.palabraClave')"
+              v-model="formData.palabraClave"
+              :rules="[(val) => !!val || $t('gral.error.fieldRequired')]"
+            ></q-input>
+          </div>
+          <div class="col-md-4 col-12">
+            {{ $t("categorias.inputs.activa") }}
             <div class="q-gutter-sm">
               <q-radio
                 left-label
-                v-model="formData.importacion"
+                v-model="formData.activa"
                 :val="$t('gral.yes')"
                 :label="$t('gral.yes')"
               />
               <q-radio
                 left-label
-                v-model="formData.importacion"
+                v-model="formData.activa"
                 :val="$t('gral.no')"
                 :label="$t('gral.no')"
               />
@@ -41,7 +55,7 @@
           <div class="col-12 col-md-2 self-center">
             <q-btn
               color="secondary"
-              :label="$t('gral.edit')"
+              :label="$t('gral.add')"
               type="submit"
               size="md"
             ></q-btn>
@@ -52,7 +66,7 @@
   </div>
 </template>
 <script setup>
-import { onBeforeMount, reactive, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
@@ -61,36 +75,27 @@ const router = useRouter();
 const store = useStore();
 const $q = useQuasar();
 
-onBeforeMount(async () => {
-  try {
-    Object.assign(formData, marcaSel.value);
-  } catch (e) {
-    console.log(e);
-    routeBack();
-  }
-});
-
-let marcaSel = computed(() => store.state.papeleria.marcaSelected);
-
 let formData = reactive({
   nombre: null,
+  descripcion: null,
   importacion: null,
+  palabraClave: null,
 });
+let isPwd = ref(true);
 
 const handleSubmit = async () => {
   try {
     $q.loading.show();
     let data = { ...formData };
-    let res = await store.dispatch("papeleria/updateMarca", { data });
+    let res = await store.dispatch("papeleria/addCategoria", { data });
     $q.notify({
       color: "accent",
-      message: "Marca Editada",
+      message: "Categoria agregada",
       position: "top",
       classes: "elevate-notify",
     });
     routeBack();
   } catch (error) {
-    console.log(error);
     $q.notify({
       color: "red",
       message: error.response.data.message,
@@ -103,6 +108,6 @@ const handleSubmit = async () => {
 };
 
 const routeBack = async () => {
-  router.push({ name: "marcas" });
+  router.push({ name: "categorias" });
 };
 </script>

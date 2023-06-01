@@ -25,3 +25,18 @@ export function SET_ALL_MARCAS(state, payload) {
 export function SET_SELECTED_MARCA(state, payload) {
   state.marcaSelected = payload;
 }
+export function SET_ALL_CATEGORIAS(state, payload) {
+  state.categorias = payload;
+}
+
+export function SET_SELECTED_CATEGORIA(state, payload) {
+  state.categoriaSelected = payload;
+}
+
+export function SET_ALL_PROVEEDORES(state, payload) {
+  state.proveedores = payload;
+}
+
+export function SET_SELECTED_PROVEEDOR(state, payload) {
+  state.proveedorSelected = payload;
+}

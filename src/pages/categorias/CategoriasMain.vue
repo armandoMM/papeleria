@@ -1,12 +1,12 @@
 <template>
   <div class="q-ma-lg">
-    <div class="text-h2 text-center q-mt-md">{{ $t("marcas.title") }}</div>
+    <div class="text-h2 text-center q-mt-md">{{ $t("categorias.title") }}</div>
     <div class="q-my-md q-mx-lg">
       <q-form @submit="handleSubmit">
         <div class="row q-col-gutter-md">
           <div class="col-md-4 col-12">
             <q-input
-              :label="$t('marcas.inputs.nombre')"
+              :label="$t('categorias.inputs.nombre')"
               v-model="formData.nombre"
             ></q-input>
           </div>
@@ -29,7 +29,7 @@
     </div>
     <q-table
       :columns="columnsTable"
-      :rows="marcas"
+      :rows="categorias"
       :loading="loadingTable"
       row-key="acciones"
     >
@@ -71,7 +71,7 @@
   ></modal-dialog>
 </template>
 <script setup>
-import { ref, reactive, onBeforeMount, computed, onMounted } from "vue";
+import { ref, reactive, onBeforeMount, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
@@ -83,7 +83,7 @@ const { t } = useI18n();
 const $q = useQuasar();
 
 const modal = ref(null);
-let brand = reactive({ id: null });
+let cat = reactive({ id: null });
 const columnsTable = ref([
   {
     name: "id",
@@ -94,15 +94,22 @@ const columnsTable = ref([
   },
   {
     name: "nombre",
-    label: t("marcas.inputs.nombre"),
+    label: t("categorias.inputs.nombre"),
     field: "nombre",
     align: "center",
     sortable: true,
   },
   {
-    name: "importacion",
-    label: t("marcas.inputs.importacion"),
-    field: "importacion",
+    name: "descripcion",
+    label: t("categorias.inputs.descripcion"),
+    field: "descripcion",
+    align: "center",
+    sortable: true,
+  },
+  {
+    name: "activa",
+    label: t("categorias.inputs.activa"),
+    field: "activa",
     align: "center",
     sortable: true,
   },
@@ -125,10 +132,7 @@ onBeforeMount(async () => {
   }
 });
 
-onMounted(() => {});
-
-let marcas = computed(() => store.state.papeleria.marcas);
-let usuario = computed(() => store.state.papeleria.usuario);
+let categorias = computed(() => store.state.papeleria.categorias);
 
 let formData = reactive({
   nombre: null,
@@ -138,7 +142,7 @@ let loadingTable = ref(false);
 const handleSearch = async () => {
   try {
     loadingTable.value = true;
-    await store.dispatch("papeleria/getMarcas", { query: {} });
+    await store.dispatch("papeleria/getCategorias", { query: {} });
   } catch (error) {
   } finally {
     loadingTable.value = false;
@@ -148,27 +152,27 @@ const handleSearch = async () => {
 const handleSubmit = () => {};
 
 const handleEdit = (row) => {
-  store.commit("papeleria/SET_SELECTED_MARCA", row);
-  router.push({ name: "marcasEdit" });
+  store.commit("papeleria/SET_SELECTED_CATEGORIA", row);
+  router.push({ name: "categoriasEdit" });
 };
 
 const handleAdd = () => {
-  router.push({ name: "marcasAdd" });
+  router.push({ name: "categoriasAdd" });
 };
 
 const handleModal = (row) => {
   modal.value.show();
-  brand.id = row.id;
+  cat.id = row.id;
 };
 const handleDelete = async () => {
   try {
-    let res = await store.dispatch("papeleria/deleteMarca", {
-      data: { id: brand.id },
+    let res = await store.dispatch("papeleria/deleteCategoria", {
+      data: { id: cat.id },
     });
     handleSearch();
     $q.notify({
       color: "accent",
-      message: "Marca eliminada",
+      message: "Categoria eliminada",
       position: "top",
       classes: "elevate-notify",
     });

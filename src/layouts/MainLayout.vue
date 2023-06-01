@@ -66,6 +66,16 @@ const essentialLinks = reactive([
     icon: "sell",
     route: "marcas",
   },
+  {
+    title: t("categorias.title"),
+    icon: "category",
+    route: "categorias",
+  },
+  {
+    title: t("proveedores.title"),
+    icon: "local_shipping",
+    route: "proveedores",
+  },
 ]);
 
 onBeforeMount(async () => {

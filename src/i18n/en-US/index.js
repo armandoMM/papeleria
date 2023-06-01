@@ -73,6 +73,7 @@ export default {
     },
     error: {
       fieldRequired: "Campo requerido",
+      invalidEmail: "Correo inválido",
     },
   },
 };
